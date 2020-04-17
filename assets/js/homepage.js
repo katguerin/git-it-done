@@ -24,7 +24,7 @@ var nameInputEl = document.querySelector("#username");
 var formSubmitHandler = function(event) {
     event.preventDefault();
 
-var username = nameInputEl.nodeValue.trim();
+var username = nameInputEl.value.trim();
 
     if (username) {
         getUserRepos(username);
