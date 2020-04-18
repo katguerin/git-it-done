@@ -13,7 +13,8 @@ var getRepoIssues = function(repo) {
                 console.log(data);
                 displayIssues(data);
             if (response.headers.get("Link")) {
-                console.log("repo has more than 30 issues");
+                //console.log("repo has more than 30 issues");
+                displayWarning(repo);
             }
         });
             
@@ -30,23 +31,6 @@ var getRepoName = function() {
     repoNameEl.textContent = repoName;
 }
 
-    // fetch(apiUrl).then(function(response){
-    //    
-    // });
-    //     if (response.ok) {
-    //         response.json().then(function(data){
-    //             displayIssues(data);
-    //         if (response.headers.get("Link")) {
-    //             console.log("repo has more than 30 issues");
-    //     }
-    // });
-
-    //     } else {
-    //         alert("There was a problem with your request!");
-    //     }
-getRepoName();
-
-
 var displayIssues = function(issues) {
     if (issues.length === 0) {
         issueContainerEl.textContent = "This repo has no open issues!";
@@ -59,9 +43,8 @@ var displayIssues = function(issues) {
         issueEl.setAttribute("href", issues[i].html_url);
         issueEl.setAttribute("target", "_blank");
         issueContainerEl.appendChild(issueEl);
-    }
-
-    var titleEl = document.createElement("span");
+   
+        var titleEl = document.createElement("span");
         titleEl.textContent = issues[i].title;
 
         // append to container
@@ -80,16 +63,19 @@ var displayIssues = function(issues) {
         // append to container
         issueEl.appendChild(typeEl);
     }
+}
 
 var displayWarning = function(repo) {
     // add text to warning container
     limitWarningEl.textContent = "To see more than 30 issues, visit ";
-
-var linkEl = document.createElement("a");
+    var linkEl = document.createElement("a");
+    //var repo = repoNameEl.textContent;
     linkEl.textContent = "See More Issues on GitHub.com";
     linkEl.setAttribute("href", "https://github.com/" + repo + "/issues");
     linkEl.setAttribute("target", "_blank");
 
-    // append to warning container
-limitWarningEl.appendChild(linkEl);
+        // append to warning container
+    limitWarningEl.appendChild(linkEl);
 };
+
+getRepoName();
